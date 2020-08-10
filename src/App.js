@@ -1,15 +1,17 @@
 /*global chrome*/
 import React, { useState } from 'react';
 import logo from './logo.png';
+import news from './news.svg';
+
 import './App.css';
-import { Button, Paper } from '@material-ui/core';
+import { Button, Paper, Fab } from '@material-ui/core';
 
 function App() {
   const [result, setResult] = useState("")
 
   async function predict() {
     setResult("...")
-    const API_URL = "http://127.0.0.1:5000/predict";
+    const API_URL = "https://fake-news---detector.herokuapp.com/predict";
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
       let url = (tabs[0].url);
       fetch(API_URL, {
@@ -35,9 +37,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Button id="predict" color="default" onClick={predict}>Predict news</Button>
-        <div id="result" elevation={3}> {result} </div>
+        <div id="xheader"><img src={news} className="App-logo" alt="logo" /></div>
+        <div id="xbody">
+          <div id="text"> Is this article fake?</div>
+          <Fab color="secondary" variant="extended" id="predict" onClick={predict}>Predict news</Fab>
+          <div id="result"> {result} </div>
+        </div>
       </header>
     </div>
   );
