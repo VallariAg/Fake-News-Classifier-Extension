@@ -1,19 +1,17 @@
 {
   "short_name": "News Classifier",
   "name": "Fake News Classifier",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "manifest_version": 2,
-  "description": "Strong password generator",
+  "description": "Check news articles if they're fake/real",
   "icons": {
-    "512": "logo512.png"
+    "512": "icon.png"
   },
   "browser_action": {
-    "default_icon": "logo512.png",
+    "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
-    "tabs",
-    "*://developer.mozilla.org/*",
-    "webRequest"
+    "tabs"
   ]
 }

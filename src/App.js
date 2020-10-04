@@ -4,13 +4,20 @@ import logo from './logo.png';
 import news from './news.svg';
 
 import './App.css';
-import { Button, Paper, Fab } from '@material-ui/core';
+import { Button, Paper, Fab, CircularProgress } from '@material-ui/core';
+// import MuiAlert from '@material-ui/lab/Alert';
+
 
 function App() {
-  const [result, setResult] = useState("")
+  const loader = <CircularProgress color="secondary" />;
+  const fakeNews = <div style={{ color: "red", paddingTop: "16%" }}>FAKE</div>;
+  const trueNews = <div style={{ color: "green", paddingTop: "16%" }}>FACT</div>
+  const predictButton = <Fab color="secondary" variant="extended" id="predict" onClick={predict}>Check this page</Fab>
+
+  const [result, setResult] = useState(predictButton)
 
   async function predict() {
-    setResult("...")
+    setResult(loader);
     const API_URL = "https://fake-news---detector.herokuapp.com/predict";
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
       let url = (tabs[0].url);
@@ -26,7 +33,9 @@ function App() {
           return;
         }
         response.json().then(function (data) {
-          setResult(data['result'].toUpperCase());
+          let result = data['result'];
+          if (result == 'fake') { setResult(fakeNews); }
+          else { setResult(trueNews); }
         });
       })
         .catch(function (error) {
@@ -39,8 +48,7 @@ function App() {
       <header className="App-header">
         <div id="xheader"><img src={news} className="App-logo" alt="logo" /></div>
         <div id="xbody">
-          <div id="text"> Is this article fake?</div>
-          <Fab color="secondary" variant="extended" id="predict" onClick={predict}>Predict news</Fab>
+          <div id="text"> Fact or Fake? </div>
           <div id="result"> {result} </div>
         </div>
       </header>

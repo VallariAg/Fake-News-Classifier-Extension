@@ -1,6 +1,5 @@
 # Fake News Classifier 
-An extension for classify fake/real news.
-
+An extension to classify fake/real news using a ML model.
 
 ## Installing
 To install dependencies, run
